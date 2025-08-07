@@ -101,7 +101,7 @@
         background-color: #fefec0;
       }
 
-      .header-fixed {
+      .header-fixed, .zyoho-Header {
         position: fixed;
         top: 0;
         left: 0;
@@ -176,7 +176,7 @@
 
       .price {
         text-align: center;
-        font-weight: bold;
+        font-weight: 900;
         font-size: 12px;
         display: flex;
         justify-content: center;
@@ -230,7 +230,7 @@
 
     <div id="indexHeader" class="header-fixed" style="display:none;">
       <img src="header.png" alt="前方エリア優先入場券" style="width: 100%; height: 50px; object-fit: cover; display: block;">
-      <button onclick="showPage('topPage')" style="position: absolute; top: 12px; left: 10px; width: 24px; height: 24px; background: none; border: none; cursor: pointer; color: #4CAF50; font-size: 24px; font-weight: bold;"></button>
+      <button onclick="showPage('topPage')" style="position: absolute; top: 12px; left: 10px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; color: #4CAF50; font-size: 24px; font-weight: bold;"></button>
     </div>
 
     <div id="indexPage" class="page" style="padding-top: 50px; overflow-y: auto; height: 100vh;">
@@ -333,13 +333,83 @@
       </div>
     </div>
 
-    <div id="zyohoPage" class="page">
-      <h1 style="text-align:center;">情報ページ</h1>
-      <p>こちらは情報ページです。現在準備中のため、内容は後日掲載予定です。</p>
-      <div class="buttons">
-        <a onclick="showPage('topPage')">トップへ戻る</a>
-      </div>
+
+    <!-- 情報 -->
+<!-- 情報ページ用ヘッダー画像（初期は非表示） -->
+<div id="zyohoHeader" class="zyoho-Header" style="display:none;">
+<img src="zyoho.png" alt="情報ページヘッダー" style="width: 100%; height: 50px; object-fit: cover; display: block;">
+      <button onclick="showPage('topPage')" style="position: absolute; top: 12px; left: 10px; width: 40px; height: 40px; background: none; border: none; cursor: pointer; color: #4CAF50; font-size: 24px; font-weight: bold;"></button>
     </div>
+
+<!-- 情報ページ -->
+<div id="zyohoPage" class="page" style="font-family: 'Noto Sans JP', sans-serif;">
+  <!-- 上部固定画像 -->
+  <div style="position: fixed; left: 0; width: 100%; z-index: 1000; background: #fff; padding: 15px 20px; box-sizing: border-box;">
+    <img src="aaa.png" alt="情報ページ画像" style="width: 100%; height: auto; display: block;border-radius: 7px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);">
+  </div>
+
+
+  <!-- 内容本体 -->
+<div style="margin-top: 60px; padding: 260px 15px 0px; font-family: 'Noto Sans JP', sans-serif;">
+
+  <!-- 個人情報入力フィールド -->
+  <div style="font-size: 13px; color: #333; max-width: 500px; margin: 0 auto;font-weight: 500;">
+
+    <div style="margin-bottom: 40px;">
+      <div style="margin-bottom: 6px;">お名前</div>
+      <div contenteditable="true" style="margin-bottom: 5px;">山田　太郎</div>
+      <div contenteditable="true" style="margin-bottom: 5px;">ヤマダ　タロウ</div>
+    </div>
+
+    <div style="margin-bottom: 40px;">
+      <div style="margin-bottom: 6px;">生年月日</div>
+      <div contenteditable="true" style="margin-bottom: 5px;">1990年01月01日</div>
+    </div>
+
+    <div style="margin-bottom: 40px;">
+      <div style="margin-bottom: 6px;">住所</div>
+      <div contenteditable="true" style="margin-bottom: 5px;">1234567</div>
+      <div contenteditable="true" style="margin-bottom: 5px;">東京都</div>
+      <div contenteditable="true" style="margin-bottom: 5px;">東京都新宿区西新宿1-1-1</div>
+    </div>
+
+    <div style="margin-bottom: 40px;">
+      <div style="margin-bottom: 6px;">電話番号</div>
+      <div contenteditable="true" style="margin-bottom: 5px;">09012345678</div>
+    </div>
+
+    <div style="margin-bottom: 40px;">
+      <div style="margin-bottom: 6px;">メールアドレス</div>
+      <div contenteditable="true" style="margin-bottom: 5px;">kazuyosisaikyo@gmail.com</div>
+    </div>
+
+    <div style="margin-bottom: 40px;">
+      <div style="margin-bottom: 6px;">チケット購入メールアドレス</div>
+      <div contenteditable="true" style="margin-bottom: 5px;">kazuyosisaikyo@gmail.com</div>
+    </div>
+
+  </div>
+</div>
+
+
+  <!-- 戻るボタン -->
+  <div class="buttons" style="text-align: center; padding: 0px 15px 60px 15px;">
+    <a onclick="showPage('topPage')" style="
+      display: inline-block;
+      background-color: #4CAF50;
+      color: #fff;
+      border: 1px solid #4CAF50;
+      border-radius: 4px;
+      padding: 15px 20px;
+      font-size: 12px;
+      text-decoration: none;
+      width: 90%;
+      max-width: 500px;
+    ">変更はこちら</a>
+  </div>
+
+</div>
+
 
     <script>
       function showPage(id) {
@@ -350,10 +420,13 @@
         // ヘッダー表示の切り替え
         document.getElementById('indexHeader').style.display = (id === 'indexPage') ? 'block' : 'none';
 
-        document.querySelector('.header-img').style.display = (id === 'indexPage') ? 'none' : 'block';
-        document.querySelector('.footer-img').style.display = (id === 'indexPage') ? 'none' : 'block';
-        document.querySelector('.info-button').style.display = (id === 'indexPage') ? 'none' : 'inline-block';
-        document.querySelector('.bo-button').style.display = (id === 'indexPage') ? 'none' : 'block';
+        document.querySelector('.header-img').style.display = (id === 'indexPage' || id === 'zyohoPage') ? 'none' : 'block';
+        document.querySelector('.footer-img').style.display = (id === 'indexPage' || id === 'zyohoPage') ? 'none' : 'block';
+        document.querySelector('.info-button').style.display =  (id === 'indexPage' || id === 'zyohoPage') ? 'none' : 'inline-block';
+        document.querySelector('.bo-button').style.display = (id === 'indexPage' || id === 'zyohoPage')  ? 'none' : 'block';
+        // 情報ページ用ヘッダー表示切替
+        document.getElementById('zyohoHeader').style.display = (id === 'zyohoPage') ? 'block' : 'none';
+
       }
     </script>
 
