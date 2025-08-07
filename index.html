@@ -1,12 +1,18 @@
 <!DOCTYPE html>
 <html lang="ja">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>整理番号アプリ</title>
-
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;600&display=swap"
+    rel="stylesheet"
+  />
   <style>
     html, body {
+      font-family: "Yu Gothic", "游ゴシック体", "Meiryo", sans-serif;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
@@ -87,7 +93,7 @@
       width: 100%;
       display: block;
       border-radius: 0;
-      margin: 0;
+      margin-top: 50px;
       padding: 0;
     }
 
@@ -143,7 +149,7 @@
     }
 
     .group-name {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
       text-align: center;
       margin-bottom: 15px;
@@ -162,23 +168,27 @@
 
     .ticket-label {
       color: #4CAF50;
-      font-size: 14px;
+      font-size: 12px;
       font-weight: 700;
+        position: relative;
+  top: 5px; 
     }
 
     .ticket-no {
       color: #4CAF50;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 900;
       margin-left: 3px;
       line-height: 1.7; 
       outline: none;
+        position: relative;
+  top: 5px; 
     }
 
     .price {
       text-align: center;
       font-weight: bold;
-      font-size: 16px;
+      font-size: 14px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -187,10 +197,27 @@
       gap: 8px;
     }
 
-    .check {
-      color: #4CAF50;
-      font-size: 20px;
-    }
+.buttons {
+  text-align: center;
+}
+
+.back-box {
+  display: inline-block;
+  background-color: #ffffff;
+  color: #4CAF50;
+  border: 1px solid #4CAF50;
+  padding: 10px 20px;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 500;
+  width: 100%;
+  max-width: 500px; /* カードの最大幅と合わせる */
+  box-sizing: border-box;
+  margin-top: 25px;
+  margin-bottom: -25px;
+  font-size: 14px;
+}
+
 
     /* トップページとindexページの画像幅 */
     #topPage img,
@@ -233,13 +260,13 @@
 
 
 <!-- ヘッダー下の文言ブロック -->
-<div class="header-text" style="padding: 10px 15px; font-size: 13px; color: #333; ">
+<div class="header-text" style="padding: 10px 15px 5px 15px; font-size: 12px; color: #333; font-family: "Yu Gothic", "游ゴシック体", "Meiryo", sans-serif; ">
   抽選の結果、以下のアーティストが当選されました。当日は、前方エリア優先入場待機エリアでこの画面をご提示ください。
 </div>
-<div class="header-text2" style="padding: 0px 15px; font-size: 12px; color: #333;">
+<div class="header-text2" style="padding: 0px 15px; font-size: 11px; color: #333; font-family: "Yu Gothic", "游ゴシック体", "Meiryo", sans-serif;">
   ※同行者のメールアドレスを設定した場合、その方のアプリの同画面にも結果が反映されています。
 </div>
-<div class="header-text2" style="padding: 20px 15px; font-size: 13px; color: #333;font-weight: bold;">
+<div class="header-text2" style="padding: 20px 15px; font-size: 13px; color: #333;font-weight: bold; font-family: "Yu Gothic", "游ゴシック体", "Meiryo", sans-serif;">
   8/9 (土)
 </div>
 <!-- 区切り線 -->
@@ -320,12 +347,16 @@
     <img src="green_check.png" alt="チェック" style="width: 22px; height: 22px; vertical-align: middle;">
   </span> ¥ 500</div>
  </div>
+ 
+<div class="buttons">
+  <a class="back-box" onclick="showPage('topPage')">購入する</a>
+</div>
+<div class="buttons">
+  <a class="back-box" onclick="showPage('topPage')">戻る</a>
+</div>
 
     </div>
 
-    <div class="buttons" style="text-align:center; padding-bottom: 40px;">
-      <a onclick="showPage('topPage')">トップへ戻る</a>
-    </div>
 
   </div>
 
