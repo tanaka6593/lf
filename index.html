@@ -346,14 +346,28 @@
   <!-- 上部固定画像 -->
   <div style="position: fixed; left: 0; width: 100%; z-index: 1000; background: #fff; padding: 15px 20px; box-sizing: border-box;">
     <img src="aaa.png" alt="情報ページ画像" style="width: 100%; height: auto; display: block;border-radius: 7px; box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);">
-  </div>
+   
+    <!-- 氏名・日時オーバーレイ -->
+     <!-- 重ね表示：時間 -->
+      <div id="openTime"
+           style="position: absolute; top: 70px; left: 50%; transform: translateX(-50%); font-size: 14px; font-weight: bold; color: #333; background: padding: 4px 8px;">
+        <!-- 時間がここに表示される -->
+      </div>
+
+      <!-- 重ね表示：氏名 -->
+      <div id="userName"
+           contenteditable="true" style="position: absolute; top: 110px; left: 50%; transform: translate(-50%, -50%); font-size: 17px; font-weight: bold; color: #333;; padding: 6px 12px;">
+        山田 太郎 様
+      </div>
+    </div>  
+
 
 
   <!-- 内容本体 -->
 <div style="margin-top: 60px; padding: 260px 15px 0px; font-family: 'Noto Sans JP', sans-serif;">
 
   <!-- 個人情報入力フィールド -->
-  <div style="font-size: 13px; color: #333; max-width: 500px; margin: 0 auto;font-weight: 500;">
+  <div style="font-size: 13px; color: #333; max-width: 500px; margin: 0 auto;font-weight: 600;">
 
     <div style="margin-bottom: 40px;">
       <div style="margin-bottom: 6px;">お名前</div>
@@ -411,24 +425,43 @@
 </div>
 
 
-    <script>
-      function showPage(id) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        const page = document.getElementById(id);
-        page.classList.add('active');
+<script>
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    const page = document.getElementById(id);
+    page.classList.add('active');
 
-        // ヘッダー表示の切り替え
-        document.getElementById('indexHeader').style.display = (id === 'indexPage') ? 'block' : 'none';
+    // ヘッダー表示の切り替え
+    document.getElementById('indexHeader').style.display = (id === 'indexPage') ? 'block' : 'none';
 
-        document.querySelector('.header-img').style.display = (id === 'indexPage' || id === 'zyohoPage') ? 'none' : 'block';
-        document.querySelector('.footer-img').style.display = (id === 'indexPage' || id === 'zyohoPage') ? 'none' : 'block';
-        document.querySelector('.info-button').style.display =  (id === 'indexPage' || id === 'zyohoPage') ? 'none' : 'inline-block';
-        document.querySelector('.bo-button').style.display = (id === 'indexPage' || id === 'zyohoPage')  ? 'none' : 'block';
-        // 情報ページ用ヘッダー表示切替
-        document.getElementById('zyohoHeader').style.display = (id === 'zyohoPage') ? 'block' : 'none';
+    document.querySelector('.header-img').style.display = (id === 'indexPage' || id === 'zyohoPage') ? 'none' : 'block';
+    document.querySelector('.footer-img').style.display = (id === 'indexPage' || id === 'zyohoPage') ? 'none' : 'block';
+    document.querySelector('.info-button').style.display = (id === 'indexPage' || id === 'zyohoPage') ? 'none' : 'inline-block';
+    document.querySelector('.bo-button').style.display = (id === 'indexPage' || id === 'zyohoPage') ? 'none' : 'block';
+    document.getElementById('zyohoHeader').style.display = (id === 'zyohoPage') ? 'block' : 'none';
 
-      }
-    </script>
+    // 情報ページを表示する時のみ、時間更新
+    if (id === 'zyohoPage') {
+      updateOpenTime();
+    }
+  }
+
+  function updateOpenTime() {
+    const now = new Date();
+    const yyyy = now.getFullYear();
+    const mm = String(now.getMonth() + 1).padStart(2, '0');
+    const dd = String(now.getDate()).padStart(2, '0');
+    const hh = String(now.getHours()).padStart(2, '0');
+    const mi = String(now.getMinutes()).padStart(2, '0');
+    const ss = String(now.getSeconds()).padStart(2, '0');
+    const formattedTime = `${yyyy}/${mm}/${dd} ${hh}:${mi}:${ss}`;
+    const timeElement = document.getElementById('openTime');
+    if (timeElement) {
+      timeElement.textContent = formattedTime;
+    }
+  }
+</script>
+
 
   </body>
 </html>
