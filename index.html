@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"/>
+<!-- ホーム画面用アイコン -->
+<link rel="apple-touch-icon" href="icon.png" />
 
+<!-- ホーム画面に追加時の名前（iOS） -->
+<meta name="apple-mobile-web-app-title" content="LuckyFes" />
   <head>
     <meta charset="UTF-8" />
     <link
@@ -38,15 +42,16 @@
       /* 情報ページボタン */
       .info-button {
         position: fixed;
-        top: 10px;
+        top: 3px;
         left: 10px;
-        padding: 8px 16px;
         font-size: 14px;
         background-color: transparent;
         border: none;
         border-radius: 6px;
         cursor: pointer;
         z-index: 1001;
+          width: 100px;               /* 幅固定 */
+          height: 50px;   
       }
 
       /* 整理番号ボタン */
@@ -213,6 +218,11 @@
         height: auto;
         display: block;
       }
+
+      .bold-en {
+        font-weight: 900;
+      }
+
     </style>
   </head>
   <body>
@@ -220,7 +230,7 @@
     <img src="head.png" alt="ヘッダー" class="header-img">
     <img src="foot.png" alt="フッター" class="footer-img">
 
-    <button class="info-button" onclick="showPage('zyohoPage')">情報ページへ</button>
+    <button class="info-button" onclick="showPage('zyohoPage')"></button>
 
     <img src="bo.png" alt="整理番号へ" class="bo-button" onclick="showPage('indexPage')">
 
@@ -350,7 +360,7 @@
     <!-- 氏名・日時オーバーレイ -->
      <!-- 重ね表示：時間 -->
       <div id="openTime"
-           style="position: absolute; top: 70px; left: 50%; transform: translateX(-50%); font-size: 14px; font-weight: bold; color: #333; background: padding: 4px 8px;">
+           style="position: absolute; top: 70px; left: 50%; transform: translateX(-50%); font-size: 12px; font-weight: 800; color: #333; background: padding: 4px 8px;">
         <!-- 時間がここに表示される -->
       </div>
 
@@ -377,29 +387,29 @@
 
     <div style="margin-bottom: 40px;">
       <div style="margin-bottom: 6px;">生年月日</div>
-      <div contenteditable="true" style="margin-bottom: 5px;">1990年01月01日</div>
+      <div contenteditable="true" style="margin-bottom: 5px;" data-bold-en>1990年01月01日</div>
     </div>
 
     <div style="margin-bottom: 40px;">
       <div style="margin-bottom: 6px;">住所</div>
-      <div contenteditable="true" style="margin-bottom: 5px;">1234567</div>
-      <div contenteditable="true" style="margin-bottom: 5px;">東京都</div>
-      <div contenteditable="true" style="margin-bottom: 5px;">東京都新宿区西新宿1-1-1</div>
+      <div contenteditable="true" style="margin-bottom: 5px;" data-bold-en>1234567</div>
+      <div contenteditable="true" style="margin-bottom: 5px;" data-bold-en>東京都</div>
+      <div contenteditable="true" style="margin-bottom: 5px;" data-bold-en>東京都新宿区西新宿1-1-1</div>
     </div>
 
     <div style="margin-bottom: 40px;">
       <div style="margin-bottom: 6px;">電話番号</div>
-      <div contenteditable="true" style="margin-bottom: 5px;">09012345678</div>
+      <div contenteditable="true" style="margin-bottom: 5px;" data-bold-en>09012345678</div>
     </div>
 
     <div style="margin-bottom: 40px;">
       <div style="margin-bottom: 6px;">メールアドレス</div>
-      <div contenteditable="true" style="margin-bottom: 5px;">kazuyosisaikyo@gmail.com</div>
+      <div contenteditable="true" style="margin-bottom: 5px;" data-bold-en>kazuyosisaikyo@gmail.com</div>
     </div>
 
     <div style="margin-bottom: 40px;">
       <div style="margin-bottom: 6px;">チケット購入メールアドレス</div>
-      <div contenteditable="true" style="margin-bottom: 5px;">kazuyosisaikyo@gmail.com</div>
+      <div contenteditable="true" style="margin-bottom: 5px;" data-bold-en>kazuyosisaikyo@gmail.com</div>
     </div>
 
   </div>
@@ -419,6 +429,7 @@
       text-decoration: none;
       width: 90%;
       max-width: 500px;
+      font-weight: 500;
     ">変更はこちら</a>
   </div>
 
@@ -426,6 +437,11 @@
 
 
 <script>
+  // ページ表示時に実行される処理
+  document.addEventListener("DOMContentLoaded", () => {
+    applyBoldToEnglish(); // 初期ロード時に英数字を太字に
+  });
+
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     const page = document.getElementById(id);
@@ -440,12 +456,14 @@
     document.querySelector('.bo-button').style.display = (id === 'indexPage' || id === 'zyohoPage') ? 'none' : 'block';
     document.getElementById('zyohoHeader').style.display = (id === 'zyohoPage') ? 'block' : 'none';
 
-    // 情報ページを表示する時のみ、時間更新
+    // 情報ページを表示する時のみ、時間更新 + 英数字太字再実行
     if (id === 'zyohoPage') {
       updateOpenTime();
+      applyBoldToEnglish();
     }
   }
 
+  // 時刻更新
   function updateOpenTime() {
     const now = new Date();
     const yyyy = now.getFullYear();
@@ -460,7 +478,24 @@
       timeElement.textContent = formattedTime;
     }
   }
+
+  // 英数字だけを <span class="bold-en"> で囲む処理
+  function applyBoldToEnglish() {
+    const fields = document.querySelectorAll('[data-bold-en]');
+
+    fields.forEach(field => {
+      const originalText = field.textContent;
+
+      // すでにspanが入っている場合はスキップ（または初期化したいなら field.innerHTML = field.textContent; で初期化）
+      if (field.innerHTML.includes('<span class="bold-en">')) return;
+
+      // 英数字と記号だけを抽出して太字化（@ . : - も含む）
+      const formatted = originalText.replace(/([A-Za-z0-9@.\-_:]+)/g, '<span class="bold-en">$1</span>');
+      field.innerHTML = formatted;
+    });
+  }
 </script>
+
 
 
   </body>
